@@ -29,17 +29,30 @@ class App extends Component {
 
   handleSearchClick() {
     this.setState({search: this.state.value});
-
-    fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyAjgZ00458ELrs43Qe3zhFRTWiteFzytZ8',{
-      method: 'GET',
-      mode: 'cors',
-      headers: new Headers({
+    $.ajax({
+      method: "GET",
+      url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyAjgZ00458ELrs43Qe3zhFRTWiteFzytZ8",
+      headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-      })
+      },
+      contentType: "application/json",
+      success: (data) => {
+        console.log("ajax post success", data)
+      },
+      error: (err) => console.log('ajax post failure', err)
     })
-    .then((res) => console.log(res))
-    .catch((error) => ('fetch get failure', error));
+
+    // fetch('https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyAjgZ00458ELrs43Qe3zhFRTWiteFzytZ8',{
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   headers: new Headers({
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+    //   })
+    // })
+    // .then((res) => console.log(res))
+    // .catch((error) => ('fetch get failure', error));
   }
 
   render() {
